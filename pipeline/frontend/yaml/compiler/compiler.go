@@ -100,14 +100,14 @@ func (c *Compiler) Compile(conf *yaml.Config) *backend.Config {
 	if c.local == false && len(conf.Clone.Containers) == 0 {
 		container := &yaml.Container{
 			Name:  "clone",
-			Image: "plugins/git:latest",
+			Image: "docker.io/plugins/git:latest",
 			Vargs: map[string]interface{}{"depth": "0"},
 		}
 		switch c.metadata.Sys.Arch {
 		case "linux/arm":
-			container.Image = "plugins/git:linux-arm"
+			container.Image = "docker.io/plugins/git:linux-arm"
 		case "linux/arm64":
-			container.Image = "plugins/git:linux-arm64"
+			container.Image = "docker.io/plugins/git:linux-arm64"
 		}
 		name := fmt.Sprintf("%s_clone", c.prefix)
 		step := c.createProcess(name, container, "clone")

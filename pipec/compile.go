@@ -34,9 +34,9 @@ var compileCommand = cli.Command{
 		cli.StringSliceFlag{
 			Name: "privileged",
 			Value: &cli.StringSlice{
-				"plugins/docker",
-				"plugins/gcr",
-				"plugins/ecr",
+				"docker.io/plugins/docker:latest",
+				"docker.io/plugins/gcr:latest",
+				"docker.io/plugins/ecr:latest",
 			},
 		},
 		cli.StringFlag{

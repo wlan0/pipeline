@@ -7,6 +7,7 @@ import (
 
 	"github.com/cncd/pipeline/pipeline/backend"
 
+	"github.com/docker/distribution/reference"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/api/types/volume"
@@ -79,7 +80,7 @@ func (e *engine) Exec(ctx context.Context, proc *backend.Step) error {
 			rc.Close()
 		}
 		// fix for drone/drone#1917
-		if perr != nil && proc.AuthConfig.Password != "" {
+		if perr != nil && proc.AuthConfig.Password != "" && perr != reference.ErrNameNotCanonical {
 			return perr
 		}
 	}
@@ -89,7 +90,7 @@ func (e *engine) Exec(ctx context.Context, proc *backend.Step) error {
 		// automatically pull and try to re-create the image if the
 		// failure is caused because the image does not exist.
 		rc, perr := e.client.ImagePull(ctx, config.Image, pullopts)
-		if perr != nil {
+		if perr != nil && perr.Error() != "repository name must be canonical" {
 			return perr
 		}
 		io.Copy(ioutil.Discard, rc)

@@ -23,7 +23,7 @@ type volumeCacher struct {
 func (c *volumeCacher) Restore(repo, branch string, mounts []string) *yaml.Container {
 	return &yaml.Container{
 		Name:  "rebuild_cache",
-		Image: "plugins/volume-cache:1.0.0",
+		Image: "docker.io/plugins/volume-cache:1.0.0",
 		Vargs: map[string]interface{}{
 			"mount":       mounts,
 			"path":        "/cache",
@@ -46,7 +46,7 @@ func (c *volumeCacher) Restore(repo, branch string, mounts []string) *yaml.Conta
 func (c *volumeCacher) Rebuild(repo, branch string, mounts []string) *yaml.Container {
 	return &yaml.Container{
 		Name:  "rebuild_cache",
-		Image: "plugins/volume-cache:1.0.0",
+		Image: "docker.io/plugins/volume-cache:1.0.0",
 		Vargs: map[string]interface{}{
 			"mount":   mounts,
 			"path":    "/cache",
@@ -76,7 +76,7 @@ type s3Cacher struct {
 func (c *s3Cacher) Restore(repo, branch string, mounts []string) *yaml.Container {
 	return &yaml.Container{
 		Name:  "rebuild_cache",
-		Image: "plugins/s3-cache:latest",
+		Image: "docker.io/plugins/s3-cache:latest",
 		Vargs: map[string]interface{}{
 			"mount":      mounts,
 			"access_key": c.access,
@@ -91,7 +91,7 @@ func (c *s3Cacher) Restore(repo, branch string, mounts []string) *yaml.Container
 func (c *s3Cacher) Rebuild(repo, branch string, mounts []string) *yaml.Container {
 	return &yaml.Container{
 		Name:  "rebuild_cache",
-		Image: "plugins/s3-cache:latest",
+		Image: "docker.io/plugins/s3-cache:latest",
 		Vargs: map[string]interface{}{
 			"mount":      mounts,
 			"access_key": c.access,
